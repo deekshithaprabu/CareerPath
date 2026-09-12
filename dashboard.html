@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Dashboard | CareerPath</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      color: #355746;
+      font-family: "DM Sans", sans-serif;
+      background:
+        linear-gradient(
+          rgba(239, 244, 235, 0.72),
+          rgba(239, 244, 235, 0.72)
+        ),
+        url("images/dashboard-bg.png") center / cover fixed no-repeat;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .page {
+      width: 100%;
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
+
+    .navbar {
+      width: min(1180px, 92%);
+      min-height: 84px;
+      margin: 0 auto;
+      padding: 0 34px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+      background: rgba(255, 255, 255, 0.94);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #355746;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 30px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .logo-symbol {
+      color: #789681;
+      font-size: 25px;
+      line-height: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .nav-links a {
+      padding: 13px 17px;
+      border-radius: 14px;
+      color: #456251;
+      font-size: 15px;
+      font-weight: 600;
+      transition: 0.25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: white;
+      background: #7c9983;
+    }
+
+    .hero {
+      width: min(1080px, 88%);
+      margin: 0 auto;
+      padding: 72px 0 42px;
+    }
+
+    .eyebrow {
+      margin-bottom: 12px;
+      color: #567462;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      max-width: 850px;
+      margin-bottom: 20px;
+      color: #355746;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(48px, 6vw, 78px);
+      font-weight: 700;
+      line-height: 1.04;
+      letter-spacing: -2px;
+    }
+
+    .hero h1 span {
+      color: #789681;
+      font-style: italic;
+    }
+
+    .hero p {
+      max-width: 720px;
+      color: #60786b;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .cards {
+      width: min(1080px, 88%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .card {
+      min-height: 340px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 24px;
+      box-shadow: 0 14px 35px rgba(68, 91, 72, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 42px rgba(68, 91, 72, 0.15);
+    }
+
+    .card-icon {
+      width: 52px;
+      height: 52px;
+      margin-bottom: 25px;
+      display: grid;
+      place-items: center;
+      color: #456b54;
+      background: #e3eee5;
+      border-radius: 17px;
+      font-size: 24px;
+    }
+
+    .card h2 {
+      margin-bottom: 17px;
+      color: #355746;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 31px;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .card p {
+      margin-bottom: 25px;
+      color: #687e70;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .card-link {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #52745d;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .card-link span {
+      font-size: 20px;
+      transition: transform 0.2s ease;
+    }
+
+    .card-link:hover span {
+      transform: translateX(5px);
+    }
+
+    .journey {
+      width: min(1080px, 88%);
+      margin: 42px auto 0;
+      padding: 34px 0;
+    }
+
+    .journey h2 {
+      margin-bottom: 12px;
+      color: #355746;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 39px;
+      line-height: 1.2;
+    }
+
+    .journey p {
+      max-width: 700px;
+      margin-bottom: 24px;
+      color: #60786b;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .assessment-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 17px 25px;
+      color: white;
+      background: #66866f;
+      border-radius: 13px;
+      font-size: 15px;
+      font-weight: 700;
+      box-shadow: 0 8px 20px rgba(80, 112, 88, 0.18);
+      transition: 0.25s ease;
+    }
+
+    .assessment-btn span {
+      font-size: 22px;
+      transition: transform 0.2s ease;
+    }
+
+    .assessment-btn:hover {
+      background: #52745d;
+      transform: translateY(-2px);
+    }
+
+    .assessment-btn:hover span {
+      transform: translateX(5px);
+    }
+
+    .footer {
+      width: min(1080px, 88%);
+      margin: 30px auto 0;
+      padding-top: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid rgba(89, 119, 96, 0.25);
+      color: #789081;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .navbar {
+        padding: 22px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding-top: 48px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .navbar,
+      .hero,
+      .cards,
+      .journey,
+      .footer {
+        width: 90%;
+      }
+
+      .logo {
+        font-size: 27px;
+      }
+
+      .nav-links {
+        gap: 5px;
+      }
+
+      .nav-links a {
+        padding: 10px 11px;
+        font-size: 13px;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+        letter-spacing: -1px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .card {
+        padding: 27px;
+      }
+
+      .journey h2 {
+        font-size: 32px;
+      }
+
+      .footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <nav class="navbar">
+      <a href="dashboard.html" class="logo">
+        <span class="logo-symbol">✦</span>
+        CareerPath
+      </a>
+
+      <div class="nav-links">
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="assessment.html">AI Career Guide</a>
+        <a href="learning.html">Learning Path</a>
+        <a href="jobs.html">Jobs</a>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero">
+        <div class="eyebrow">Welcome to CareerPath</div>
+
+        <h1>
+          Build Your Career With
+          <span>Confidence</span>
+        </h1>
+
+        <p>
+          Discover your strengths, follow a personalized learning path,
+          and explore internships and job opportunities that match your goals.
+        </p>
+      </section>
+
+      <section class="cards">
+
+        <article class="card">
+          <div class="card-icon">✦</div>
+
+          <h2>AI Career Guide</h2>
+
+          <p>
+            Answer five simple questions and receive a personalized career
+            recommendation with useful skills and project ideas.
+          </p>
+
+          <a href="assessment.html" class="card-link">
+            Explore Careers
+            <span>→</span>
+          </a>
+        </article>
+
+        <article class="card">
+          <div class="card-icon">▣</div>
+
+          <h2>Learning Path</h2>
+
+          <p>
+            Follow a step-by-step roadmap designed for your selected career
+            and track your learning progress.
+          </p>
+
+          <a href="learning.html" class="card-link">
+            Open Learning Path
+            <span>→</span>
+          </a>
+        </article>
+
+        <article class="card">
+          <div class="card-icon">⌕</div>
+
+          <h2>Jobs and Internships</h2>
+
+          <p>
+            Explore beginner-friendly internships, job roles, and external
+            opportunities from trusted career platforms.
+          </p>
+
+          <a href="jobs.html" class="card-link">
+            Find Opportunities
+            <span>→</span>
+          </a>
+        </article>
+
+      </section>
+
+      <section class="journey">
+        <div class="eyebrow">Start Your Journey</div>
+
+        <h2>Not sure which career to choose?</h2>
+
+        <p>
+          Let the AI Career Guide recommend a direction based on your
+          interests, current skills, and future goals.
+        </p>
+
+        <a href="assessment.html" class="assessment-btn">
+          Start Assessment
+          <span>→</span>
+        </a>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Designed for students and future professionals</span>
+      <span>© 2026 CareerPath</span>
+    </footer>
+
+  </div>
+</body>
+</html>

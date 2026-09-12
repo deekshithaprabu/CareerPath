@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Learning Path | CareerPath</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      color: #355746;
+      font-family: "DM Sans", sans-serif;
+      background:
+        linear-gradient(
+          rgba(238, 244, 235, 0.82),
+          rgba(238, 244, 235, 0.88)
+        ),
+        url("images/learning-bg.png") center / cover fixed no-repeat;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .navbar {
+      width: min(1180px, 92%);
+      min-height: 84px;
+      margin: 0 auto;
+      padding: 0 34px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+      background: rgba(255, 255, 255, 0.94);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #355746;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 30px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .logo-symbol {
+      color: #789681;
+      font-size: 25px;
+      line-height: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .nav-links a {
+      padding: 13px 17px;
+      border-radius: 14px;
+      color: #456251;
+      font-size: 15px;
+      font-weight: 500;
+      transition: 0.25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: white;
+      background: #7c9983;
+    }
+
+    .page {
+      width: min(1080px, 90%);
+      margin: 45px auto 70px;
+    }
+
+    .hero {
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin-bottom: 14px;
+      color: #789681;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 500;
+    }
+
+    .hero h1 {
+      margin-bottom: 15px;
+      color: #355746;
+      font-size: clamp(40px, 5vw, 58px);
+      line-height: 1.15;
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      color: #687e70;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .career-selector {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid #dce7dc;
+      border-radius: 20px;
+    }
+
+    .career-selector label {
+      color: #526b5d;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    select {
+      flex: 1;
+      padding: 13px;
+      color: #456251;
+      background: #f8fcf8;
+      border: 1px solid #cbdccc;
+      border-radius: 12px;
+      font-family: "DM Sans", sans-serif;
+      font-size: 14px;
+    }
+
+    button,
+    .action-link {
+      border: none;
+      border-radius: 12px;
+      padding: 13px 19px;
+      color: white;
+      background: #66866f;
+      font-family: "DM Sans", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.25s ease;
+    }
+
+    button:hover,
+    .action-link:hover {
+      background: #52745d;
+      transform: translateY(-2px);
+    }
+
+    .roadmap {
+      display: grid;
+      gap: 18px;
+    }
+
+    .roadmap-card {
+      padding: 28px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid #dce7dc;
+      border-radius: 22px;
+      box-shadow: 0 10px 28px rgba(68, 91, 72, 0.07);
+    }
+
+    .roadmap-card h2 {
+      margin-bottom: 12px;
+      color: #355746;
+      font-size: 29px;
+      line-height: 1.2;
+    }
+
+    .roadmap-card p {
+      margin-bottom: 18px;
+      color: #687e70;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .roadmap-card ul {
+      margin-bottom: 18px;
+      padding-left: 22px;
+      color: #60786b;
+      line-height: 1.9;
+      font-size: 15px;
+    }
+
+    .progress-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .progress-area input {
+      width: 18px;
+      height: 18px;
+      accent-color: #66866f;
+      cursor: pointer;
+    }
+
+    .progress-area label {
+      color: #526b5d;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .resources {
+      margin-top: 28px;
+      padding: 28px;
+      background: rgba(225, 237, 224, 0.95);
+      border-radius: 22px;
+    }
+
+    .resources h2 {
+      margin-bottom: 16px;
+      color: #355746;
+      font-size: 31px;
+    }
+
+    .resources a {
+      display: block;
+      margin-bottom: 10px;
+      color: #52745d;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .resources a:hover {
+      text-decoration: underline;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .secondary {
+      color: #52745d;
+      background: #e3eee2;
+    }
+
+    .secondary:hover {
+      color: #355746;
+      background: #d4e5d3;
+    }
+
+    @media (max-width: 800px) {
+      .navbar {
+        padding: 22px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .career-selector {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .career-selector button {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .navbar,
+      .page {
+        width: 92%;
+      }
+
+      .logo {
+        font-size: 27px;
+      }
+
+      .nav-links {
+        gap: 5px;
+      }
+
+      .nav-links a {
+        padding: 10px 11px;
+        font-size: 13px;
+      }
+
+      .roadmap-card,
+      .resources {
+        padding: 23px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <a href="dashboard.html" class="logo">
+      <span class="logo-symbol">✦</span>
+      CareerPath
+    </a>
+
+    <div class="nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="assessment.html">AI Career Guide</a>
+      <a href="learning.html" class="active">Learning Path</a>
+      <a href="jobs.html">Jobs</a>
+    </div>
+  </nav>
+
+  <main class="page">
+
+    <section class="hero">
+      <div class="eyebrow">Your Personalized Roadmap</div>
+
+      <h1 id="pageTitle">Your Learning Path</h1>
+
+      <p>
+        Follow this roadmap, complete each step, and build practical skills
+        for your chosen career.
+      </p>
+    </section>
+
+    <section class="career-selector">
+      <label for="careerSelect">Choose your career:</label>
+
+      <select id="careerSelect">
+        <option value="Software Developer">Software Developer</option>
+        <option value="Frontend Web Developer">Frontend Web Developer</option>
+        <option value="Data Analyst">Data Analyst</option>
+        <option value="Cybersecurity Analyst">Cybersecurity Analyst</option>
+      </select>
+
+      <button onclick="generatePath()">Generate Path</button>
+    </section>
+
+    <section id="roadmap" class="roadmap"></section>
+
+    <section class="resources">
+      <h2>Recommended Resources</h2>
+
+      <a href="https://www.freecodecamp.org/" target="_blank">
+        FreeCodeCamp
+      </a>
+
+      <a href="https://www.w3schools.com/" target="_blank">
+        W3Schools
+      </a>
+
+      <a href="https://www.geeksforgeeks.org/" target="_blank">
+        GeeksforGeeks
+      </a>
+
+      <a href="https://leetcode.com/" target="_blank">
+        LeetCode
+      </a>
+    </section>
+
+    <div class="actions">
+      <a href="assessment.html" class="action-link">
+        Retake Assessment
+      </a>
+
+      <a href="jobs.html" class="action-link secondary">
+        Explore Jobs
+      </a>
+
+      <a href="dashboard.html" class="action-link secondary">
+        Back to Dashboard
+      </a>
+    </div>
+
+  </main>
+
+  <script>
+    const roadmaps = {
+      "Software Developer": [
+        {
+          title: "Step 1: Programming Fundamentals",
+          description: "Build a strong foundation in programming and problem-solving.",
+          topics: [
+            "Variables and data types",
+            "Conditional statements",
+            "Loops and functions",
+            "Arrays and strings",
+            "Basic problem-solving"
+          ]
+        },
+        {
+          title: "Step 2: Object-Oriented Programming",
+          description: "Understand how real-world software is designed using objects and classes.",
+          topics: [
+            "Classes and objects",
+            "Encapsulation",
+            "Inheritance",
+            "Polymorphism",
+            "Constructors and destructors"
+          ]
+        },
+        {
+          title: "Step 3: Data Structures",
+          description: "Learn how to store, organize, and process data efficiently.",
+          topics: [
+            "Arrays",
+            "Linked lists",
+            "Stacks and queues",
+            "Trees",
+            "Searching and sorting"
+          ]
+        },
+        {
+          title: "Step 4: Build a Project",
+          description: "Use your skills to create a practical application.",
+          topics: [
+            "Choose a project idea",
+            "Design the features",
+            "Write the code",
+            "Test the application",
+            "Upload it to GitHub"
+          ]
+        }
+      ],
+
+      "Frontend Web Developer": [
+        {
+          title: "Step 1: HTML",
+          description: "Learn how to structure webpages.",
+          topics: [
+            "HTML elements",
+            "Forms",
+            "Tables",
+            "Semantic HTML",
+            "Accessibility basics"
+          ]
+        },
+        {
+          title: "Step 2: CSS",
+          description: "Learn how to create attractive and responsive designs.",
+          topics: [
+            "Colors and typography",
+            "Box model",
+            "Flexbox",
+            "CSS Grid",
+            "Responsive design"
+          ]
+        },
+        {
+          title: "Step 3: JavaScript",
+          description: "Add interaction and functionality to websites.",
+          topics: [
+            "Variables",
+            "Functions",
+            "Arrays and objects",
+            "DOM manipulation",
+            "Events"
+          ]
+        },
+        {
+          title: "Step 4: Build a Website",
+          description: "Create and publish a complete responsive website.",
+          topics: [
+            "Plan the layout",
+            "Create the pages",
+            "Add JavaScript features",
+            "Test on mobile",
+            "Publish the project"
+          ]
+        }
+      ],
+
+      "Data Analyst": [
+        {
+          title: "Step 1: Excel and Statistics",
+          description: "Learn the basics of working with data.",
+          topics: [
+            "Excel formulas",
+            "Sorting and filtering",
+            "Mean, median, and mode",
+            "Charts",
+            "Basic probability"
+          ]
+        },
+        {
+          title: "Step 2: SQL",
+          description: "Learn how to retrieve information from databases.",
+          topics: [
+            "SELECT statements",
+            "WHERE conditions",
+            "GROUP BY",
+            "JOIN operations",
+            "Aggregate functions"
+          ]
+        },
+        {
+          title: "Step 3: Python for Data",
+          description: "Use Python to clean and analyze datasets.",
+          topics: [
+            "Python basics",
+            "Pandas",
+            "NumPy",
+            "Data cleaning",
+            "Data visualization"
+          ]
+        },
+        {
+          title: "Step 4: Build a Dashboard",
+          description: "Create a useful data analysis project.",
+          topics: [
+            "Find a dataset",
+            "Clean the data",
+            "Analyze patterns",
+            "Create charts",
+            "Present your findings"
+          ]
+        }
+      ],
+
+      "Cybersecurity Analyst": [
+        {
+          title: "Step 1: Networking Basics",
+          description: "Understand how computers and networks communicate.",
+          topics: [
+            "IP addresses",
+            "DNS",
+            "HTTP and HTTPS",
+            "Ports",
+            "Network devices"
+          ]
+        },
+        {
+          title: "Step 2: Linux Fundamentals",
+          description: "Learn the operating system commonly used in security work.",
+          topics: [
+            "Terminal commands",
+            "Files and permissions",
+            "Processes",
+            "Users and groups",
+            "Shell basics"
+          ]
+        },
+        {
+          title: "Step 3: Security Concepts",
+          description: "Understand common security risks and protection methods.",
+          topics: [
+            "Threats and vulnerabilities",
+            "Authentication",
+            "Encryption",
+            "Firewalls",
+            "Security awareness"
+          ]
+        },
+        {
+          title: "Step 4: Security Project",
+          description: "Apply your knowledge in a beginner-friendly project.",
+          topics: [
+            "Create a password checker",
+            "Study common attacks",
+            "Document security risks",
+            "Test your project",
+            "Publish your work"
+          ]
+        }
+      ]
+    };
+
+    function generatePath() {
+      const career = document.getElementById("careerSelect").value;
+      const roadmap = document.getElementById("roadmap");
+
+      document.getElementById("pageTitle").textContent =
+        career + " Learning Path";
+
+      roadmap.innerHTML = roadmaps[career].map((step, index) => `
+        <article class="roadmap-card">
+          <h2>${step.title}</h2>
+
+          <p>${step.description}</p>
+
+          <ul>
+            ${step.topics.map(topic => `<li>${topic}</li>`).join("")}
+          </ul>
+
+          <div class="progress-area">
+            <input
+              type="checkbox"
+              id="step-${career}-${index}"
+              onchange="saveProgress('${career}', ${index}, this.checked)"
+            >
+
+            <label for="step-${career}-${index}">
+              Mark this step as completed
+            </label>
+          </div>
+        </article>
+      `).join("");
+
+      loadProgress(career);
+      localStorage.setItem("careerPathSelectedCareer", career);
+    }
+
+    function saveProgress(career, index, checked) {
+      const progress =
+        JSON.parse(localStorage.getItem("careerPathProgress") || "{}");
+
+      if (!progress[career]) {
+        progress[career] = {};
+      }
+
+      progress[career][index] = checked;
+
+      localStorage.setItem(
+        "careerPathProgress",
+        JSON.stringify(progress)
+      );
+    }
+
+    function loadProgress(career) {
+      const progress =
+        JSON.parse(localStorage.getItem("careerPathProgress") || "{}");
+
+      if (!progress[career]) {
+        return;
+      }
+
+      Object.keys(progress[career]).forEach(index => {
+        const checkbox = document.getElementById(
+          `step-${career}-${index}`
+        );
+
+        if (checkbox) {
+          checkbox.checked = progress[career][index];
+        }
+      });
+    }
+
+    const savedCareer =
+      localStorage.getItem("careerPathSelectedCareer") ||
+      "Software Developer";
+
+    document.getElementById("careerSelect").value = savedCareer;
+    generatePath();
+  </script>
+
+</body>
+</html>

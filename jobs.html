@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CareerPath | Jobs & Internships</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "DM Sans", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      color: #29463b;
+      background:
+        linear-gradient(
+          rgba(235, 242, 231, 0.88),
+          rgba(235, 242, 231, 0.95)
+        ),
+        url("images/jobs-bg.png") center / cover fixed no-repeat;
+    }
+
+    .navbar {
+      width: min(1305px, 90%);
+      margin: 35px auto 0;
+      padding: 22px 34px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid #e0e9df;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      color: #315d48;
+      font-family: "Playfair Display", serif;
+      font-size: 27px;
+      font-weight: 500;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .logo span {
+      font-family: "DM Sans", sans-serif;
+      font-size: 23px;
+      margin-right: 5px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: #526b5d;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 12px 0;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #315d48;
+    }
+
+    .page {
+      width: min(1120px, 90%);
+      margin: 45px auto 70px;
+    }
+
+    .heading {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .title-with-butterfly {
+      position: relative;
+      display: inline-block;
+    }
+
+    .heading h1 {
+      position: relative;
+      z-index: 1;
+      color: #294f3b;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(32px, 5vw, 50px);
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .jobs-butterfly {
+      position: absolute;
+      z-index: 2;
+      width: 55px;
+      height: 48px;
+      right: -35px;
+      top: -24px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: drop-shadow(0 4px 5px rgba(45, 70, 50, 0.2));
+    }
+
+    .heading p {
+      color: #647a6b;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    .search-box {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr auto;
+      gap: 14px;
+      padding: 25px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid #d8e7da;
+      border-radius: 24px;
+      box-shadow: 0 12px 30px rgba(70, 105, 80, 0.08);
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #cbdccc;
+      border-radius: 12px;
+      background: #f8fcf8;
+      color: #29463b;
+      outline: none;
+      font-size: 14px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #719b7e;
+    }
+
+    button,
+    .job-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: none;
+      border-radius: 12px;
+      padding: 13px 18px;
+      background: #507d60;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: 0.25s ease;
+    }
+
+    button:hover,
+    .job-button:hover {
+      background: #3d654c;
+      transform: translateY(-2px);
+    }
+
+    .status {
+      margin: 24px 0 18px;
+      color: #647a6b;
+      font-size: 14px;
+    }
+
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .job-card {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid #d8e7da;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(70, 105, 80, 0.07);
+    }
+
+    .job-card h3 {
+      color: #315d48;
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .company {
+      color: #708477;
+      font-weight: 600;
+    }
+
+    .details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      padding: 7px 10px;
+      border-radius: 20px;
+      background: #e7f1e7;
+      color: #52735c;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .job-card p {
+      flex-grow: 1;
+      color: #65796c;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .skills {
+      color: #526b5d;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .skills strong {
+      color: #315d48;
+    }
+
+    .job-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 5px;
+    }
+
+    .job-actions .secondary {
+      background: #e7f1e7;
+      color: #42684f;
+    }
+
+    .job-actions .secondary:hover {
+      background: #d6e7d8;
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      padding: 40px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid #d8e7da;
+      border-radius: 20px;
+      color: #65796c;
+    }
+
+    .empty h3 {
+      color: #315d48;
+      font-family: "Playfair Display", serif;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .referral {
+      margin-top: 38px;
+      padding: 30px;
+      text-align: center;
+      border-radius: 22px;
+      background: rgba(220, 235, 221, 0.95);
+    }
+
+    .referral h2 {
+      color: #315d48;
+      font-family: "Playfair Display", serif;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .referral p {
+      color: #5e7565;
+      margin-bottom: 20px;
+    }
+
+    .referral-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 950px) {
+      .search-box {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .jobs-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .navbar {
+        width: 94%;
+        margin-top: 18px;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .nav-links {
+        justify-content: center;
+        gap: 18px;
+      }
+
+      .search-box,
+      .jobs-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page {
+        width: 92%;
+        margin-top: 30px;
+      }
+
+      .job-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .jobs-butterfly {
+        width: 38px;
+        height: 38px;
+        right: -25px;
+        top: -20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <a href="dashboard.html" class="logo">
+      <span>✦</span> CareerPath
+    </a>
+
+    <div class="nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="assessment.html">AI Career Guide</a>
+      <a href="learning.html">Learning Path</a>
+      <a href="jobs.html" class="active">Jobs & Internships</a>
+    </div>
+  </nav>
+
+  <main class="page">
+
+    <section class="heading">
+      <div class="title-with-butterfly">
+        <h1>Find Your Next Opportunity</h1>
+
+        <img
+          src="images/jobs-butterfly.png"
+          alt="Butterfly"
+          class="jobs-butterfly"
+        >
+      </div>
+
+      <p>
+        Discover internships, fresher roles, and beginner-friendly opportunities
+        based on your interests and skills.
+      </p>
+    </section>
+
+    <section class="search-box">
+      <input
+        id="roleInput"
+        type="text"
+        placeholder="Search role e.g. Software Engineer"
+      >
+
+      <input
+        id="locationInput"
+        type="text"
+        placeholder="Location e.g. Tamil Nadu"
+      >
+
+      <select id="typeInput">
+        <option value="all">All Opportunities</option>
+        <option value="internship">Internship</option>
+        <option value="full-time">Full-Time</option>
+      </select>
+
+      <button onclick="searchJobs()">Search →</button>
+    </section>
+
+    <p id="status" class="status">
+      Showing recommended opportunities for you.
+    </p>
+
+    <section id="jobsGrid" class="jobs-grid"></section>
+
+    <section class="referral">
+      <h2>Explore Live Job Platforms</h2>
+
+      <p>
+        Use these platforms to find currently available jobs and internships.
+      </p>
+
+      <div class="referral-links">
+        <a
+          class="job-button"
+          href="https://internshala.com/internships/"
+          target="_blank"
+          rel="noopener"
+        >
+          Internshala ↗
+        </a>
+
+        <a
+          class="job-button"
+          href="https://www.linkedin.com/jobs/"
+          target="_blank"
+          rel="noopener"
+        >
+          LinkedIn Jobs ↗
+        </a>
+
+        <a
+          class="job-button"
+          href="https://in.indeed.com/"
+          target="_blank"
+          rel="noopener"
+        >
+          Indeed ↗
+        </a>
+
+        <a
+          class="job-button"
+          href="https://www.naukri.com/"
+          target="_blank"
+          rel="noopener"
+        >
+          Naukri ↗
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const opportunities = [
+      {
+        title: "Software Developer Intern",
+        company: "TechNova Solutions",
+        location: "Chennai, Tamil Nadu",
+        type: "internship",
+        mode: "Hybrid",
+        salary: "₹8,000–₹15,000/month",
+        category: "software",
+        skills: "Python, C++, Java, Git",
+        description:
+          "Assist the development team in building software features, fixing bugs, and testing applications.",
+        applyLink:
+          "https://www.linkedin.com/jobs/search/?keywords=software%20developer%20intern&location=Chennai%2C%20Tamil%20Nadu",
+        detailsLink:
+          "https://in.indeed.com/jobs?q=software+developer+intern&l=Chennai%2C+Tamil+Nadu"
+      },
+
+      {
+        title: "Backend Developer Intern",
+        company: "CodeCraft Labs",
+        location: "Coimbatore, Tamil Nadu",
+        type: "internship",
+        mode: "On-site",
+        salary: "₹10,000–₹18,000/month",
+        category: "software",
+        skills: "Node.js, Python, SQL, APIs",
+        description:
+          "Work with backend developers on APIs, databases, authentication, and server-side applications.",
+        applyLink:
+          "https://www.linkedin.com/jobs/search/?keywords=backend%20developer%20intern&location=Coimbatore%2C%20Tamil%20Nadu",
+        detailsLink:
+          "https://in.indeed.com/jobs?q=backend+developer+intern&l=Coimbatore%2C+Tamil+Nadu"
+      },
+
+      {
+        title: "Python Developer Intern",
+        company: "DigitalNest",
+        location: "Salem, Tamil Nadu",
+        type: "internship",
+        mode: "Hybrid",
+        salary: "₹7,000–₹12,000/month",
+        category: "software",
+        skills: "Python, Flask, SQL, GitHub",
+        description:
+          "Create small automation tools and support Python-based application development.",
+        applyLink:
+          "https://internshala.com/internships/keywords-python-development/",
+        detailsLink:
+          "https://www.linkedin.com/jobs/search/?keywords=python%20developer%20intern&location=Salem%2C%20Tamil%20Nadu"
+      },
+
+      {
+        title: "Frontend Web Developer Intern",
+        company: "PixelWorks Studio",
+        location: "Chennai, Tamil Nadu",
+        type: "internship",
+        mode: "Remote",
+        salary: "₹6,000–₹12,000/month",
+        category: "web",
+        skills: "HTML, CSS, JavaScript, React",
+        description:
+          "Design responsive websites and improve user interfaces for real client projects.",
+        applyLink:
+          "https://internshala.com/internships/keywords-frontend-development/",
+        detailsLink:
+          "https://www.linkedin.com/jobs/search/?keywords=frontend%20developer%20intern&location=Chennai%2C%20Tamil%20Nadu"
+      },
+
+      {
+        title: "Junior Web Developer",
+        company: "BrightWeb Technologies",
+        location: "Bengaluru, Karnataka",
+        type: "full-time",
+        mode: "On-site",
+        salary: "₹3.0–₹4.5 LPA",
+        category: "web",
+        skills: "HTML, CSS, JavaScript, Bootstrap",
+        description:
+          "Support the web development team by creating pages, fixing UI issues, and maintaining websites.",
+        applyLink:
+          "https://www.linkedin.com/jobs/search/?keywords=junior%20web%20developer&location=Bengaluru%2C%20Karnataka",
+        detailsLink:
+          "https://in.indeed.com/jobs?q=junior+web+developer&l=Bengaluru%2C+Karnataka"
+      },
+
+      {
+        title: "Data Analyst Intern",
+        company: "Insight Analytics",
+        location: "Chennai, Tamil Nadu",
+        type: "internship",
+        mode: "Hybrid",
+        salary: "₹10,000–₹16,000/month",
+        category: "data",
+        skills: "Excel, SQL, Python, Power BI",
+        description:
+          "Clean datasets, prepare reports, and identify useful patterns through basic data analysis.",
+        applyLink:
+          "https://internshala.com/internships/keywords-data-analysis/",
+        detailsLink:
+          "https://www.linkedin.com/jobs/search/?keywords=data%20analyst%20intern&location=Chennai%2C%20Tamil%20Nadu"
+      },
+
+      {
+        title: "Cybersecurity Intern",
+        company: "SecureNet Systems",
+        location: "Hyderabad, Telangana",
+        type: "internship",
+        mode: "On-site",
+        salary: "₹8,000–₹15,000/month",
+        category: "cybersecurity",
+        skills: "Networking, Linux, Security Basics",
+        description:
+          "Learn security monitoring, vulnerability testing, networking, and incident reporting.",
+        applyLink:
+          "https://internshala.com/internships/keywords-cyber-security/",
+        detailsLink:
+          "https://www.linkedin.com/jobs/search/?keywords=cybersecurity%20intern&location=Hyderabad%2C%20Telangana"
+      },
+
+      {
+        title: "Graduate Software Engineer",
+        company: "FutureStack Technologies",
+        location: "Pune, Maharashtra",
+        type: "full-time",
+        mode: "Hybrid",
+        salary: "₹4.0–₹6.5 LPA",
+        category: "software",
+        skills: "C++, Java, Python, Problem Solving",
+        description:
+          "Join a graduate engineering team and work on application development, testing, and debugging.",
+        applyLink:
+          "https://www.naukri.com/software-engineer-fresher-jobs",
+        detailsLink:
+          "https://www.linkedin.com/jobs/search/?keywords=graduate%20software%20engineer&location=Pune%2C%20Maharashtra"
+      },
+
+      {
+        title: "QA Testing Intern",
+        company: "QualityFirst Labs",
+        location: "Remote",
+        type: "internship",
+        mode: "Remote",
+        salary: "₹5,000–₹10,000/month",
+        category: "software",
+        skills: "Manual Testing, Test Cases, Bug Reports",
+        description:
+          "Test websites and applications, report bugs, and learn the software testing lifecycle.",
+        applyLink:
+          "https://internshala.com/internships/keywords-testing/",
+        detailsLink:
+          "https://www.linkedin.com/jobs/search/?keywords=qa%20testing%20intern&f_WT=2"
+      }
+    ];
+
+    function displayJobs(list) {
+      const grid = document.getElementById("jobsGrid");
+
+      if (list.length === 0) {
+        grid.innerHTML = `
+          <div class="empty">
+            <h3>No matching opportunities found</h3>
+            <p>
+              Try searching for developer, engineer, software, data,
+              testing, or cybersecurity.
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = list.map(job => `
+        <article class="job-card">
+          <h3>${job.title}</h3>
+
+          <div class="company">
+            ${job.company}
+          </div>
+
+          <div class="details">
+            <span class="tag">${job.location}</span>
+            <span class="tag">${job.type}</span>
+            <span class="tag">${job.mode}</span>
+          </div>
+
+          <p>${job.description}</p>
+
+          <div class="skills">
+            <strong>Skills:</strong> ${job.skills}
+          </div>
+
+          <div class="skills">
+            <strong>Pay:</strong> ${job.salary}
+          </div>
+
+          <div class="job-actions">
+            <a
+              class="job-button"
+              href="${job.applyLink}"
+              target="_blank"
+              rel="noopener"
+            >
+              Apply Now ↗
+            </a>
+
+            <a
+              class="job-button secondary"
+              href="${job.detailsLink}"
+              target="_blank"
+              rel="noopener"
+            >
+              View Details
+            </a>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function searchJobs() {
+      const role = document
+        .getElementById("roleInput")
+        .value
+        .trim()
+        .toLowerCase();
+
+      const location = document
+        .getElementById("locationInput")
+        .value
+        .trim()
+        .toLowerCase();
+
+      const type = document.getElementById("typeInput").value;
+      const status = document.getElementById("status");
+
+      let filtered = opportunities.filter(job => {
+        const roleMatch =
+          !role ||
+          job.title.toLowerCase().includes(role) ||
+          job.company.toLowerCase().includes(role) ||
+          job.category.includes(role) ||
+          (role.includes("engineer") && job.category === "software") ||
+          (role.includes("developer") &&
+            (job.category === "software" || job.category === "web")) ||
+          (role.includes("coding") && job.category === "software") ||
+          (role.includes("program") && job.category === "software");
+
+        const locationMatch =
+          !location ||
+          job.location.toLowerCase().includes(location) ||
+          (location.includes("tamil") &&
+            job.location.toLowerCase().includes("tamil nadu")) ||
+          (location.includes("remote") &&
+            job.location.toLowerCase().includes("remote"));
+
+        const typeMatch =
+          type === "all" || job.type === type;
+
+        return roleMatch && locationMatch && typeMatch;
+      });
+
+      if (filtered.length === 0) {
+        filtered = opportunities.filter(job => {
+          const relatedRole =
+            !role ||
+            (role.includes("engineer") && job.category === "software") ||
+            (role.includes("developer") &&
+              (job.category === "software" || job.category === "web")) ||
+            (role.includes("software") && job.category === "software") ||
+            (role.includes("data") && job.category === "data") ||
+            (role.includes("cyber") && job.category === "cybersecurity") ||
+            job.title.toLowerCase().includes(role);
+
+          const relatedType =
+            type === "all" || job.type === type;
+
+          return relatedRole && relatedType;
+        });
+
+        if (filtered.length > 0) {
+          status.textContent =
+            "No exact matches found. Showing related opportunities instead.";
+        } else {
+          status.textContent =
+            "No exact matches found. Showing all recommended opportunities.";
+
+          filtered = opportunities;
+        }
+      } else {
+        status.textContent =
+          `Found ${filtered.length} matching opportunities.`;
+      }
+
+      displayJobs(filtered);
+    }
+
+    displayJobs(opportunities);
+  </script>
+
+</body>
+</html>
