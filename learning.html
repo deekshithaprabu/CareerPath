@@ -98,6 +98,14 @@
       line-height: 1.7;
     }
 
+    .selected-career {
+      display: none;
+      margin-top: 18px;
+      color: #66866f;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
     .selector-card {
       background: rgba(255, 255, 255, 0.94);
       border: 1px solid #d9e5d8;
@@ -374,13 +382,17 @@
 
     <section class="intro">
       <h1>Your Learning Roadmap</h1>
+
       <p>
-        Choose a career and follow each learning step with separate resources,
-        practice websites, and project guidance.
+        Your recommended career is automatically selected from your assessment.
+        You can also choose another career manually.
       </p>
+
+      <div class="selected-career" id="selectedCareerMessage"></div>
     </section>
 
     <section class="selector-card">
+
       <label for="careerSelect">Choose your career:</label>
 
       <select id="careerSelect">
@@ -400,38 +412,24 @@
           <div class="progress-bar" id="progressBar"></div>
         </div>
       </div>
+
     </section>
 
     <section class="roadmap" id="roadmap"></section>
 
     <section class="resources">
+
       <h2>Recommended Resources</h2>
 
       <div class="resource-list">
-        <a href="https://www.freecodecamp.org/" target="_blank">
-          FreeCodeCamp
-        </a>
-
-        <a href="https://www.w3schools.com/" target="_blank">
-          W3Schools
-        </a>
-
-        <a href="https://www.geeksforgeeks.org/" target="_blank">
-          GeeksforGeeks
-        </a>
-
-        <a href="https://leetcode.com/" target="_blank">
-          LeetCode
-        </a>
-
-        <a href="https://www.kaggle.com/" target="_blank">
-          Kaggle
-        </a>
-
-        <a href="https://developer.mozilla.org/" target="_blank">
-          MDN Web Docs
-        </a>
+        <a href="https://www.freecodecamp.org/" target="_blank">FreeCodeCamp</a>
+        <a href="https://www.w3schools.com/" target="_blank">W3Schools</a>
+        <a href="https://www.geeksforgeeks.org/" target="_blank">GeeksforGeeks</a>
+        <a href="https://leetcode.com/" target="_blank">LeetCode</a>
+        <a href="https://www.kaggle.com/" target="_blank">Kaggle</a>
+        <a href="https://developer.mozilla.org/" target="_blank">MDN Web Docs</a>
       </div>
+
     </section>
 
     <div class="bottom-actions">
@@ -446,6 +444,7 @@
     const roadmap = document.getElementById("roadmap");
     const progressText = document.getElementById("progressText");
     const progressBar = document.getElementById("progressBar");
+    const selectedCareerMessage = document.getElementById("selectedCareerMessage");
 
     const careerData = {
       software: {
@@ -838,8 +837,9 @@
 
       roadmap.innerHTML = "";
 
-      selectedCareer.steps.forEach((step, index) => {
+      selectedCareer.steps.forEach(function(step, index) {
         const card = document.createElement("article");
+
         card.className = "step-card";
 
         if (progress[index]) {
@@ -858,7 +858,9 @@
           <p>${step.description}</p>
 
           <ul class="topics">
-            ${step.topics.map(topic => `<li>${topic}</li>`).join("")}
+            ${step.topics.map(function(topic) {
+              return `<li>${topic}</li>`;
+            }).join("")}
           </ul>
 
           <div class="step-actions">
@@ -885,21 +887,81 @@
         roadmap.appendChild(card);
       });
 
-      document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener("change", function () {
-          const currentProgress = loadProgress();
-          currentProgress[Number(this.dataset.index)] = this.checked;
-          saveProgress(currentProgress);
-          displayRoadmap();
-          updateProgress();
+      document
+        .querySelectorAll('#roadmap input[type="checkbox"]')
+        .forEach(function(checkbox) {
+          checkbox.addEventListener("change", function() {
+            const currentProgress = loadProgress();
+
+            currentProgress[Number(this.dataset.index)] = this.checked;
+
+            saveProgress(currentProgress);
+            displayRoadmap();
+          });
         });
-      });
 
       updateProgress();
     }
 
-    careerSelect.addEventListener("change", displayRoadmap);
+    function convertCareerNameToValue(careerName) {
+      const name = careerName.toLowerCase();
 
+      if (
+        name.includes("frontend") ||
+        name.includes("front end") ||
+        name.includes("web developer") ||
+        name.includes("web development")
+      ) {
+        return "frontend";
+      }
+
+      if (
+        name.includes("data analyst") ||
+        name.includes("data analysis")
+      ) {
+        return "data";
+      }
+
+      if (
+        name.includes("cybersecurity") ||
+        name.includes("cyber security") ||
+        name.includes("security analyst")
+      ) {
+        return "cybersecurity";
+      }
+
+      return "software";
+    }
+
+    function loadAssessmentCareer() {
+      const savedCareer = localStorage.getItem("careerPathSelectedCareer");
+
+      if (!savedCareer) {
+        careerSelect.value = "software";
+        selectedCareerMessage.style.display = "none";
+        return;
+      }
+
+      const careerValue = convertCareerNameToValue(savedCareer);
+
+      careerSelect.value = careerValue;
+
+      selectedCareerMessage.textContent =
+        "Recommended for you: " + careerData[careerValue].title;
+
+      selectedCareerMessage.style.display = "block";
+    }
+
+    careerSelect.addEventListener("change", function() {
+      selectedCareerMessage.textContent =
+        "Selected career: " + careerData[careerSelect.value].title;
+
+      selectedCareerMessage.style.display = "block";
+
+      displayRoadmap();
+    });
+
+    loadAssessmentCareer();
     displayRoadmap();
   </script>
 
