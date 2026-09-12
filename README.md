@@ -35,4 +35,4 @@ CareerPath is an career guidance and opportunity discovery website designed for 
 - Student profile dashboard
 - Resume builder
 - Application tracking
-- Database integration
+- Database integrations
