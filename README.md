@@ -30,8 +30,7 @@ CareerPath is an career guidance and opportunity discovery website designed for 
 
 ## Future Improvements
 
-- Firebase authentication
-- Real AI career recommendations
+
 - Live job API integration
 - Student profile dashboard
 - Resume builder
